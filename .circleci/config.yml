@@ -1,0 +1,1413 @@
+version: 2.1
+
+jobs:
+  aud311:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Snapshot v4
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; date -d @$(date +%s) +%T; true ; } > /tmp/input/21bc930d-b9f4-9702
+            echo "gate QA_DEPLOY_6: $(wc -c </tmp/input/21bc930d-b9f4-9702) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - '21bc930d-b9f4-9702'
+  QA_DEPLOY_6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/tmpa1f0b
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  experimental-word:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: basically proxy the latency budget
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; help test | head -n 4; true ; } > /tmp/input/stage_e707
+            echo "gate send-it: $(wc -c </tmp/input/stage_e707) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'stage_e707'
+  send-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/stage_e707
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  lilRandomModule:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: congratulateAllReviewers
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'let'\''s go!' | wc -m; true ; } > /tmp/input/error-52e5.log
+            echo "gate pr-01: $(wc -c </tmp/input/error-52e5.log) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'error-52e5.log'
+  pr-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/PO-78489-NY
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  randomsList:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Execute snapshot with respect to the thread pool
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; sort -t : -k 3 -n /etc/passwd | head -2; true ; } > /tmp/input/trial-3i
+            echo "gate tb-01: $(wc -c </tmp/input/trial-3i) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'trial-3i'
+  tb-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/tmpa1f0b
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  iQYiHDQ:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Enrich Error Rows r19
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; echo secret > "/tmp/spam-1206.list" && shred -u "/tmp/spam-1206.list" && ls "/tmp/spam-1206.list" 2>/dev/null || echo shredded; true ; } > /tmp/input/teal-bramble
+            echo "gate full-send: $(wc -c </tmp/input/teal-bramble) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'teal-bramble'
+  full-send:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/teal-bramble
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  decryptRemoteBusGlobal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Enchant the power supply
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; printf '%s\n' delhi vienna berlin kyoto lima hanoi | shuf -n 4 | tail -n4 | xargs; true ; } > /tmp/input/jJ
+            echo "gate fix-router-redirect: $(wc -c </tmp/input/jJ) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'jJ'
+  fix-router-redirect:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/jJ
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  strings_ps:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Op Pulsar
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; awk -F':' '$4 != "" { print $1 }' /etc/group | sed 's/^/- /'; true ; } > /tmp/input/33efb4
+            echo "gate green-light: $(wc -c </tmp/input/33efb4) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - '33efb4'
+  green-light:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/tmpa1f0b
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  osqwusO:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Pipette the specimen tray before lunch
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; ls /tmp | sed -n '1~2p'; true ; } > /tmp/input/audit-5e9be8.log
+            echo "gate ensure-partial-docker-image: $(wc -c </tmp/input/audit-5e9be8.log) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'audit-5e9be8.log'
+  ensure-partial-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/audit-5e9be8.log
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  cold-p:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: unzip tmp 39
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; locale LC_TIME | head -n2; true ; } > /tmp/input/crc_61f25bb4
+            echo "gate Rollout_App3: $(wc -c </tmp/input/crc_61f25bb4) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'crc_61f25bb4'
+  Rollout_App3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/crc_61f25bb4
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  gridCnt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Confirm successful reboot of the beacons
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; data=(sunday saturday tuesday thursday friday);(IFS=,; echo "${data[*]}"); true ; } > /tmp/input/orderBearQuark
+            echo "gate node18-cov: $(wc -c </tmp/input/orderBearQuark) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'orderBearQuark'
+  node18-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/tmpa1f0b
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  laser-fuel:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Upload the visual diffs across to region a
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; cat /etc/group | grep -s audio | sort | head -n 3; true ; } > /tmp/input/7b513ae
+            echo "gate py310-build: $(wc -c </tmp/input/7b513ae) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - '7b513ae'
+  py310-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/tmpa1f0b
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  php-x86-stable:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Cancel restore
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; echo "we're live" | fold -w 8; true ; } > /tmp/input/5gK8r1tTGUOO6R3
+            echo "gate VERIFY_STG: $(wc -c </tmp/input/5gK8r1tTGUOO6R3) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - '5gK8r1tTGUOO6R3'
+  VERIFY_STG:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/5gK8r1tTGUOO6R3
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  ByteIdDefaultLocal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Snapshot v4
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; printf %s "42"|sum|awk '{print $1}'; true ; } > /tmp/input/tmp_c5e603
+            echo "gate add-edge: $(wc -c </tmp/input/tmp_c5e603) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'tmp_c5e603'
+  add-edge:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/tmp_c5e603
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  tar:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Locking the transaction log hold on
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; for w in `seq 7`; do echo "${w}"; done; true ; } > /tmp/input/lagoonOrchardFrozen
+            echo "gate check-quick-integration-tests: $(wc -c </tmp/input/lagoonOrchardFrozen) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'lagoonOrchardFrozen'
+  check-quick-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/tmpa1f0b
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  papa-window:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Mirror the security desk back to tier two
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 3 -type f -iname 'group*' -writable -exec wc -l {} \; 2>/dev/null | sed 's|.*/||' | sort -u; true ; } > /tmp/input/SILVER_BEAM_PEER_DRAFT
+            echo "gate d-x: $(wc -c </tmp/input/SILVER_BEAM_PEER_DRAFT) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'SILVER_BEAM_PEER_DRAFT'
+  d-x:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/crc_f96d1a94c1f1249
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  finalInt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Thumbnail album art via the console
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; for n in sydney seoul bogota; do echo "<$n>"; done | head -n 3; true ; } > /tmp/input/dustyfenmuondelta
+            echo "gate CHECK_DEV: $(wc -c </tmp/input/dustyfenmuondelta) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'dustyfenmuondelta'
+  CHECK_DEV:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/PO-78489-NY
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  ryo_x:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: RECEIVE PACKING SLIPS TWO PER CART
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; ls -v -T 4 /usr/bin | shuf -n 2; true ; } > /tmp/input/wave_cedar
+            echo "gate node20-lint: $(wc -c </tmp/input/wave_cedar) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'wave_cedar'
+  node20-lint:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/wave_cedar
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  B5:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Remind the referral bonuses per policy
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; printf %s "update the docs" | sha384sum | awk '{print $1}'; true ; } > /tmp/input/116db14
+            echo "gate ga-v6: $(wc -c </tmp/input/116db14) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - '116db14'
+  ga-v6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/116db14
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  z_scale:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Commence isolation
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; sed 's|.*/||' /etc/shells | awk '{print toupper(substr($0,1,1)) substr($0,2)}' | head -n 20; true ; } > /tmp/input/iter0_4e16
+            echo "gate fire-up: $(wc -c </tmp/input/iter0_4e16) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'iter0_4e16'
+  fire-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/crc_f96d1a94c1f1249
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  errorBlockDir:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: AUTO purge
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; tail -3 /etc/passwd|cut -d : -f 6; true ; } > /tmp/input/crc_f96d1a94c1f1249
+            echo "gate polaris-rev: $(wc -c </tmp/input/crc_f96d1a94c1f1249) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'crc_f96d1a94c1f1249'
+  polaris-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/crc_f96d1a94c1f1249
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  asynczonecache:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Dim beacons r5
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; command grep -i /usr/bin /etc/shells | sort | uniq -c; true ; } > /tmp/input/4.34.53
+            echo "gate b-2a: $(wc -c </tmp/input/4.34.53) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - '4.34.53'
+  b-2a:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/PO-78489-NY
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  attrb93563:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Preview the loudness levels if you can
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; echo "key=value"; echo "3 jobs pending"; true ; } > /tmp/input/uj5RhQ1lsktJ1sjhwPY
+            echo "gate jul17-canary: $(wc -c </tmp/input/uj5RhQ1lsktJ1sjhwPY) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'uj5RhQ1lsktJ1sjhwPY'
+  jul17-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/uj5RhQ1lsktJ1sjhwPY
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  GJUJK-805-iterate-var:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Batch Seven Rerun
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; f="/tmp/config-v3.out"; seq 5 > "$f"; while read -r n; do echo $((n * n)); done < "$f"; true ; } > /tmp/input/thunderp4rser
+            echo "gate rust-vet: $(wc -c </tmp/input/thunderp4rser) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'thunderp4rser'
+  rust-vet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/thunderp4rser
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  tanaka:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: harden trust store first
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; head -n5 /etc/group | sort -t ':' -k3 -n | cut -d: -f1; true ; } > /tmp/input/sparKmarkETfrOZEN
+            echo "gate QA_DEPLOY_5: $(wc -c </tmp/input/sparKmarkETfrOZEN) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'sparKmarkETfrOZEN'
+  QA_DEPLOY_5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/PO-78489-NY
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  exit2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Snapshot v4
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; (umask 077; touch '/tmp/f6.out' && stat -c %a '/tmp/f6.out'); true ; } > /tmp/input/ember-buffer-zinc-fermion
+            echo "gate oscar-2: $(wc -c </tmp/input/ember-buffer-zinc-fermion) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'ember-buffer-zinc-fermion'
+  oscar-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/PO-78489-NY
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  by4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Ping API
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; stat -c "%n %y" /bin/ls; true ; } > /tmp/input/PO-78489-NY
+            echo "gate qa-alt: $(wc -c </tmp/input/PO-78489-NY) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'PO-78489-NY'
+  qa-alt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/PO-78489-NY
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  DNSTransaction:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: I usually audit the backorders last
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; find /opt -maxdepth 2 -type d -mmin +5 -exec basename {} \; 2>/dev/null | wc -l; true ; } > /tmp/input/INV30290
+            echo "gate teh-ci: $(wc -c </tmp/input/INV30290) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'INV30290'
+  teh-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/PO-78489-NY
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  c8b5bd9a38275:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Training To Test
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; yes "line one" | head -n 2; true ; } > /tmp/input/J
+            echo "gate INIT_QA: $(wc -c </tmp/input/J) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'J'
+  INIT_QA:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/J
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  vector-PASSWORD:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: approval HELP
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; printf 'host=localhost\nport=9060\nuser=olga\ndebug=true\n' >'/tmp/mango-salt.txt'&&(. '/tmp/mango-salt.txt' && echo "$host:$port"); true ; } > /tmp/input/tmpa1f0b
+            echo "gate rollout: $(wc -c </tmp/input/tmpa1f0b) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'tmpa1f0b'
+  rollout:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/tmpa1f0b
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+  sum:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: last bit
+          command: |
+            mkdir -p /tmp/input
+            { set +o pipefail 2>/dev/null; grep -hRc case /etc/security 2>/dev/null | sort | head -n 5; true ; } > /tmp/input/stagebe0d10
+            echo "gate papa-2: $(wc -c </tmp/input/stagebe0d10) bytes total"
+      - persist_to_workspace:
+          root: /tmp/input
+          paths:
+            - 'stagebe0d10'
+  papa-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/input
+      - run:
+          name: Verify A
+          command: |
+            cat /tmp/input/stagebe0d10
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: tar -xJf static.tar.xz
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          name: Smoke check
+          command: date -u
+      - run:
+          command: sh -c "./checker"
+
+workflows:
+  build-and-test:
+    jobs:
+      - errorBlockDir
+      - papa-window
+      - polaris-rev:
+          requires:
+            - errorBlockDir
+            - papa-window
+      - d-x:
+          requires:
+            - errorBlockDir
+            - papa-window
+      - fire-up:
+          requires:
+            - errorBlockDir
+            - papa-window
+      - vector-PASSWORD
+      - tar
+      - rollout:
+          requires:
+            - vector-PASSWORD
+            - tar
+      - check-quick-integration-tests:
+          requires:
+            - vector-PASSWORD
+            - tar
+      - QA_DEPLOY_6:
+          requires:
+            - vector-PASSWORD
+            - tar
+      - node18-cov:
+          requires:
+            - vector-PASSWORD
+            - tar
+      - py310-build:
+          requires:
+            - vector-PASSWORD
+            - tar
+      - tb-01:
+          requires:
+            - vector-PASSWORD
+            - tar
+      - green-light:
+          requires:
+            - vector-PASSWORD
+            - tar
+      - by4
+      - asynczonecache
+      - lilRandomModule
+      - qa-alt:
+          requires:
+            - by4
+            - asynczonecache
+            - lilRandomModule
+      - b-2a:
+          requires:
+            - by4
+            - asynczonecache
+            - lilRandomModule
+      - pr-01:
+          requires:
+            - by4
+            - asynczonecache
+            - lilRandomModule
+      - CHECK_DEV:
+          requires:
+            - by4
+            - asynczonecache
+            - lilRandomModule
+      - teh-ci:
+          requires:
+            - by4
+            - asynczonecache
+            - lilRandomModule
+      - oscar-2:
+          requires:
+            - by4
+            - asynczonecache
+            - lilRandomModule
+      - QA_DEPLOY_5:
+          requires:
+            - by4
+            - asynczonecache
+            - lilRandomModule
+      - cold-p
+      - Rollout_App3:
+          requires:
+            - cold-p
+      - osqwusO:
+          requires:
+            - cold-p
+      - ensure-partial-docker-image:
+          requires:
+            - osqwusO
+      - decryptRemoteBusGlobal:
+          requires:
+            - osqwusO
+      - fix-router-redirect:
+          requires:
+            - decryptRemoteBusGlobal
+      - experimental-word:
+          requires:
+            - decryptRemoteBusGlobal
+      - send-it:
+          requires:
+            - experimental-word
+      - ByteIdDefaultLocal:
+          requires:
+            - experimental-word
+      - add-edge:
+          requires:
+            - ByteIdDefaultLocal
+      - B5:
+          requires:
+            - ByteIdDefaultLocal
+      - ga-v6:
+          requires:
+            - B5
+      - c8b5bd9a38275:
+          requires:
+            - B5
+      - INIT_QA:
+          requires:
+            - c8b5bd9a38275
+      - php-x86-stable
+      - VERIFY_STG:
+          requires:
+            - php-x86-stable
+      - attrb93563:
+          requires:
+            - php-x86-stable
+      - jul17-canary:
+          requires:
+            - attrb93563
+      - ryo_x:
+          requires:
+            - attrb93563
+      - node20-lint:
+          requires:
+            - ryo_x
+      - GJUJK-805-iterate-var:
+          requires:
+            - ryo_x
+      - rust-vet:
+          requires:
+            - GJUJK-805-iterate-var
+      - iQYiHDQ:
+          requires:
+            - GJUJK-805-iterate-var
+      - full-send:
+          requires:
+            - iQYiHDQ
+      - sum:
+          requires:
+            - iQYiHDQ
+      - papa-2:
+          requires:
+            - sum
